@@ -1,6 +1,6 @@
 USE ZulupaRPGDB;
 
---//-------------??????-------------//--
+--//-------------Countries-------------//--
 CREATE TABLE CountryStatuses
 (
     Id INT PRIMARY KEY IDENTITY,
@@ -46,7 +46,13 @@ CREATE TABLE Wars
 	CONSTRAINT FK_Wars_To_CountriesWinner FOREIGN KEY (WinnerId) REFERENCES Countries (Id)
 );
 
---//-------------?????-------------//--
+--//-------------Heroes-------------//--
+CREATE TABLE Races
+(
+    Id INT PRIMARY KEY IDENTITY,
+	Name NVARCHAR(50) NOT NULL UNIQUE
+);
+
 CREATE TABLE Classes
 (
     Id INT PRIMARY KEY IDENTITY,
@@ -59,9 +65,10 @@ CREATE TABLE Heroes
 	Name NVARCHAR(50) NOT NULL UNIQUE,
 	homelandId INT NOT NULL,
 	ClassId INT NOT NULL,
-	RaseId INT NOT NULL,
+	RaceId INT NOT NULL,
 	CONSTRAINT FK_Heroes_To_Settlements FOREIGN KEY (homelandId)  REFERENCES Settlements (Id),
-	CONSTRAINT FK_Heroes_To_Classes FOREIGN KEY (ClassId)  REFERENCES Classes (Id)
+	CONSTRAINT FK_Heroes_To_Classes FOREIGN KEY (ClassId)  REFERENCES Classes (Id),
+	CONSTRAINT FK_Heroes_To_Races FOREIGN KEY (RaceId)  REFERENCES Races (Id)
 );
 
 CREATE TABLE ItemTypes
@@ -106,7 +113,7 @@ CREATE TABLE HeroAbilities
 	CONSTRAINT FK_HeroAbilities_To_Abilities FOREIGN KEY (AbilityId) REFERENCES Abilities (Id)
 );
 
---//-------------???????-------------//--
+--//-------------Guildies-------------//--
 CREATE TABLE Guildies
 (
     Id INT PRIMARY KEY IDENTITY,
